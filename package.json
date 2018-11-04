@@ -1,0 +1,22 @@
+{
+  "name": "taylor-s-science-fair",
+  "version": "1.0.0",
+  "description": "Taylor's science Fair",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "connect": "^3.2.0",
+    "js-yaml": "^3.3.0",
+    "phidget22": "^2.0.7",
+    "serve-static": "^1.13.2",
+    "swagger-tools": "0.10.1"
+  }
+}

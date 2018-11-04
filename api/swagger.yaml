@@ -1,0 +1,87 @@
+---
+swagger: "2.0"
+info:
+  description: "Taylor's science Fair"
+  version: "1.0.0"
+  title: "Taylor's Science Fair"
+basePath: "/v1"
+paths:
+  /motor:
+    post:
+      tags:
+      - "Motor"
+      operationId: "setSpeed"
+      parameters:
+      - in: "body"
+        name: "speed"
+        required: true
+        schema:
+          $ref: "#/definitions/SpeedRequest"
+      responses:
+        200:
+          description: "sure"
+      x-swagger-router-controller: "Motor"
+  /sensors:
+    get:
+      tags:
+      - "Sensors"
+      operationId: "getSensorValues"
+      parameters: []
+      responses:
+        200:
+          description: "ok"
+          schema:
+            $ref: "#/definitions/SensorsResult"
+      x-swagger-router-controller: "Sensors"
+  /sensors/calibrate/{direction}:
+    post:
+      tags:
+      - "Sensors"
+      operationId: "calibrateSensor"
+      parameters:
+      - name: "direction"
+        in: "path"
+        description: "the direction that is being calibrated"
+        required: true
+        type: "string"
+      - name: "value"
+        in: "query"
+        description: "the force being applied"
+        required: true
+        type: "number"
+        format: "double"
+      responses:
+        200:
+          description: "calibration successful"
+      x-swagger-router-controller: "Sensors"
+definitions:
+  SpeedRequest:
+    type: "object"
+    required:
+    - "speed"
+    properties:
+      speed:
+        type: "integer"
+        format: "int32"
+    example:
+      speed: 0
+  SensorsResult:
+    type: "object"
+    properties:
+      drag:
+        type: "number"
+        format: "double"
+      lift:
+        type: "number"
+        format: "double"
+      angle:
+        type: "number"
+        format: "double"
+      amplitude:
+        type: "number"
+        format: "double"
+    example:
+      amplitude: 5.962133916683182377482808078639209270477294921875
+      lift: 6.02745618307040320615897144307382404804229736328125
+      angle: 1.46581298050294517310021547018550336360931396484375
+      drag: 0.80082819046101150206595775671303272247314453125
