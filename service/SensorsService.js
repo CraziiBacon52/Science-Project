@@ -34,6 +34,7 @@ var loadDefaults = function() {
 };
 
 var writeDefaults = function() {
+  console.log('write defaults');
   fs.writeFileSync("baseline.json", JSON.stringify(baseline, null, 2));
   fs.writeFileSync("scale.json", JSON.stringify(scale, null, 2));
 }
@@ -52,7 +53,7 @@ var connectToLoadCell = function () {
     ch.setEngaged(0);
   };
   sensors.push(phidgetConnection);
-  
+
   phidgetConnection = new phidget22.VoltageRatioInput();
   phidgetConnection.setChannel(1);
 	phidgetConnection.onVoltageRatioChange = function (ratio) {
@@ -91,6 +92,7 @@ exports.calibrateSensor = function(direction, value) {
     var _scale = value / delta;
     scale[position] = _scale;
   }
+  writeDefaults();
 
   return new Promise(function(resolve, reject) {
     resolve({

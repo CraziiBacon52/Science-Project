@@ -25,7 +25,12 @@
     usePromise: true
   }).then(function (client) {
     window.client = client;
-  });
+    return client.Sensors.calibrateSensor({direction: 'drag', value: 0})
+  }).then(function () {
+    return client.Sensors.calibrateSensor({direction: 'lift', value: 0})
+  }).then(function () {
+    console.log('calibrated');
+  })
 
   var slider = document.getElementById("myRange");
   var output = document.getElementById("myRange");
@@ -33,16 +38,16 @@
   output.innerHTML = slider.value; // Display the default slider value
 
   function myFunction(myRange) {
-      if(myRange.target.value != sliderValue){
-            console.log(myRange.target.value);
-            sliderValue = myRange.target.value;
-            window.client.Motor.setSpeed({speed: {
-              speed: parseInt(myRange.target.value)
-            }})
-            .then(function() {
-              console.log('set motor');
-            })
-      }
+    if(myRange.target.value != sliderValue){
+      console.log(myRange.target.value);
+      sliderValue = myRange.target.value;
+      window.client.Motor.setSpeed({speed: {
+        speed: parseInt(myRange.target.value)
+      }})
+      .then(function() {
+        console.log('set motor');
+      })
+    }
   }
 
 // Update the current slider value (each time you drag the slider handle)
@@ -96,8 +101,8 @@
             document.getElementById("Drag").innerHTML = "Drag: " + sensorInfo.drag.toFixed(2).fontcolor("#ff6666");
             document.getElementById("Amplitude").innerHTML = "Amplitude: " + sensorInfo.amplitude.toFixed(2).fontcolor("#ff6666");
           });
-      }, 1000);
-     }
+      }, 500);
+    }
 
     </script>
     </div>
