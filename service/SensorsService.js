@@ -4,12 +4,14 @@ var phidget22 = require('phidget22'),
 
 var SERVER_PORT = 5661;
 var HOSTNAME = 'localhost';
+var VALUES_TO_AVERAGE = 2;
 
 var sensors = []
 
 var baseline = {'0': 0, '1': 0};
 var scale = {'0': 1, '1': 1};
 var load = {'0': 0, '1': 0};
+var values = {'0': [], '1': []};
 
 var loadDefaults = function() {
   if(fs.exists("baseline.json", function(exists) {
@@ -46,18 +48,30 @@ var connectToLoadCell = function () {
   phidgetConnection = new phidget22.VoltageRatioInput();
   phidgetConnection.setChannel(0);
 	phidgetConnection.onVoltageRatioChange = function (ratio) {
-    load['0'] = ratio;
+    values['0'].push(ratio);
+    if(values['0'].length > VALUES_TO_AVERAGE) {
+      var _values = values['0'];
+      values['0'] = [];
+      var sum = _values.reduce(function(a, b) { return a + b; });
+      load['0'] = sum / _values.length;
+    }
 	};
   phidgetConnection.onAttach = function (ch) {
     console.log('attached channel 0');
     ch.setEngaged(0);
   };
   sensors.push(phidgetConnection);
-
+  
   phidgetConnection = new phidget22.VoltageRatioInput();
   phidgetConnection.setChannel(1);
 	phidgetConnection.onVoltageRatioChange = function (ratio) {
-    load['1'] = ratio;
+    values['1'].push(ratio);
+    if(values['1'].length > VALUES_TO_AVERAGE) {
+      var _values = values['1'];
+      values['1'] = [];
+      var sum = _values.reduce(function(a, b) { return a + b; });
+      load['1'] = sum / _values.length;
+    }
 	};
   phidgetConnection.onAttach = function (ch) {
     console.log('attached channel 1');
