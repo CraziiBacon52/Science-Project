@@ -75,28 +75,27 @@
         window.client.Sensors.getSensorValues()
           .then(function(result) {
             var data = result.obj;
-            var drag = data.drag * 1000.0;
-            var lift = data.lift * 1000.0;
-            var amplitude = data.amplitude * 10;
+            var drag = data.drag * 50.0;
+            var lift = data.lift * 50.0;
+            var amplitude = data.amplitude * 50.0;
             var sensorInfo = {
                 drag: drag,
                 lift: lift,
                 angle: data.angle,
                 amplitude: amplitude
             };
-            // console.log(result.data);
 
-            // draw your line using the values in the sensorInfo
+            var startx = 300;
+            var starty = 400;
+
             context.clearRect(0, 0, 500, 775);
-            // Reset the current path
             context.beginPath();
-            // Staring point (10,45)
-            context.moveTo(300,400);
-            // End point (180,47)
-            context.lineTo(sensorInfo.drag*100, sensorInfo.lift*100);
+            context.moveTo(startx, starty);
+            context.lineWidth = 5;
+            context.lineTo(startx - drag, starty - lift);
             context.strokeStyle="black";
-            // Make the line visible
             context.stroke();
+
             document.getElementById("Lift").innerHTML = "Lift: " + sensorInfo.lift.toFixed(2).fontcolor("#ff6666");
             document.getElementById("Drag").innerHTML = "Drag: " + sensorInfo.drag.toFixed(2).fontcolor("#ff6666");
             document.getElementById("Amplitude").innerHTML = "Amplitude: " + sensorInfo.amplitude.toFixed(2).fontcolor("#ff6666");
