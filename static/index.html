@@ -23,7 +23,7 @@
             </div>
           </div>
 
-          <button type="button" class="btn btn-dark">:)</button>
+          <button type="button" class="btn btn-dark" id="reloadBtn">:)</button>
           <br>
           <br>
         <div class="slidecontainer">
@@ -65,6 +65,17 @@
     output.innerHTML = this.value;
     slider.addEventListener("change", myFunction);
   }
+
+  var button = document.getElementById("reloadBtn");
+
+  button.addEventListener("click", function() {
+    window.client.Sensors.calibrateSensor({direction: 'drag', value: 0})
+      .then(function () {
+        return client.Sensors.calibrateSensor({direction: 'lift', value: 0})
+      }).then(function () {
+        console.log('calibrated');
+      });
+  })
 </script>
 </div>
 
