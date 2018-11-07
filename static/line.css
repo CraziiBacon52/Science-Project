@@ -59,6 +59,9 @@
 .drag{
   color:black;
 }
-.lift{
-  color:black;
+
+.values{
+  margin-top:0;
+  margin-bottom:0;
+  background-color:#98FB98;
 }
