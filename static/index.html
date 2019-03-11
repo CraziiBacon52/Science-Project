@@ -6,24 +6,49 @@
   <meta charset=utf-8 />
 </head>
 <body class="body">
+
   <div class="container">
   <div class="row">
     <div class="col">
-      <h1 class="text1">Text</h1>
-      <hr color="white">
-      <div class="values">
-              <div class= "lift">
-        <p class="lift"<span style='color: black'id="Lift"</span></p>
-        </div>
-          <div class= "drag">
-        <p class="drag"<span style='color: black'id="Drag"</span></p>
-            </div>
-          <div class= "amplitude">
-        <p class="amplitude" <span style='color: black'id="Amplitude"</span></p>
-            </div>
-          </div>
+      <h1 class="text1">Line Values</h1>
+      <br>
 
-          <button type="button" class="btn btn-dark" id="reloadBtn">:)</button>
+        <table class="table table-hover table-dark">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Item</th>
+      <th scope="col">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Lift</td>
+      <td><div class= "lift">
+  <p class="lift"<span style='color: black'id="Lift"</span></p>
+  </div></td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Drag</td>
+      <td><div class= "drag">
+      <p class="drag"<span style='color: black'id="Drag"</span></p>
+          </div></td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Amplitude</td>
+      <td><div class= "amplitude">
+      <p class="amplitude"<span style='color: black'id="Amplitude"</span></p>
+          </div></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+          <button type="button" class="btn btn-dark" id="reloadBtn">Recalibrate</button>
           <br>
           <br>
         <div class="slidecontainer">
@@ -82,7 +107,7 @@
 
     </div>
     <div class="col">
-      <canvas class="canvas" id="DemoCanvas" width="500" height="500" style="border:1px solid black;"></canvas>
+      <canvas class="canvas" id="DemoCanvas" width="500" height="500" style="border:1px solid white;"></canvas>
     <script>
 
     var canvas = document.getElementById('DemoCanvas');
@@ -114,12 +139,12 @@
             context.moveTo(startx, starty);
             context.lineWidth = 5;
             context.lineTo(startx - drag, starty - lift);
-            context.strokeStyle="black";
+            context.strokeStyle="white";
             context.stroke();
 
-            document.getElementById("Lift").innerHTML = "Lift: " + sensorInfo.lift.toFixed(2).fontcolor("#ff6666");
-            document.getElementById("Drag").innerHTML = "Drag: " + sensorInfo.drag.toFixed(2).fontcolor("#ff6666");
-            document.getElementById("Amplitude").innerHTML = "Amplitude: " + sensorInfo.amplitude.toFixed(2).fontcolor("#ff6666");
+            document.getElementById("Lift").innerHTML =  sensorInfo.lift.toFixed(2).fontcolor("#ff6666");
+            document.getElementById("Drag").innerHTML =  sensorInfo.drag.toFixed(2).fontcolor("#ff6666");
+            document.getElementById("Amplitude").innerHTML = sensorInfo.amplitude.toFixed(2).fontcolor("#ff6666");
           });
       }, 500);
     }
